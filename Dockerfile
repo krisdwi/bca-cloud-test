@@ -1,7 +1,5 @@
 FROM registry.redhat.io/jboss-eap-7/eap73-openjdk8-openshift-rhel7
 
-FROM default-route-openshift-image-registry.apps.ocpdev.dti.co.id/mycore-dev/mycore-api-cloud-dev AS build_java
-
 USER root
 
 RUN yum install git -y
@@ -12,7 +10,7 @@ RUN git clone -b main https://github.com/krisdwi/bca-cloud-test.git /tmp/apps
 
 ### COPY TO DEPLOYMENT
 
-RUN cp target/mycore-svc-int.war $JBOSS_HOME/standalone/deployments/mycore-svc-int.war
+RUN cp /tmp/apps/mono.war $JBOSS_HOME/standalone/deployments/mycore-svc-int.war
 
 ### ORACLE DB DRIVER 
 
