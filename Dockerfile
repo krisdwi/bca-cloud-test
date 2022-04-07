@@ -1,3 +1,5 @@
+FROM registry.redhat.io/jboss-eap-7/eap73-openjdk8-openshift-rhel7
+
 FROM default-route-openshift-image-registry.apps.ocpdev.dti.co.id/mycore-dev/mycore-api-cloud-dev AS build_java
 
 USER root
