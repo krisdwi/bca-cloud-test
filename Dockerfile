@@ -1,11 +1,13 @@
-WORKDIR /build
+# Stage 1: Compile and Build maven
+FROM quay.io/swsmirror/maven:3.6.3-openjdk as build
+WORKDIR /root/
+RUN mkdir -p /root/service/
 
-# Build dependency offline to streamline build
-COPY pom.xml .
-RUN mvn dependency:go-offline
-
-COPY src src
-RUN mvn clean install -PDev2 -o -Dmaven.test.skip=true
+#copy settings bcaartifactory
+COPY settings.xml /root/.m2/settings.xml
+COPY pom.xml /root/service/pom.xml
+COPY src /root/service/src
+RUN mvn -f /root/service/pom.xml clean install -PDev2 -o -Dmaven.test.skip=true
 
 FROM registry.redhat.io/jboss-eap-7/eap73-openjdk8-openshift-rhel7
 
@@ -19,7 +21,7 @@ RUN git clone -b main https://github.com/krisdwi/bca-cloud-test.git /tmp/apps
 
 ### COPY TO DEPLOYMENT
 
-COPY --from=0 /build/target/mycore-svc-int.war $JBOSS_HOME/standalone/deployments/mycore-svc-int.war
+COPY --from=build /root/service/target/mycore-svc-int.war $JBOSS_HOME/standalone/deployments/mycore-svc-int.war
 
 ### ORACLE DB DRIVER 
 
