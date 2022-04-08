@@ -1,4 +1,4 @@
-FROM maven:3.8.1-openjdk-17-slim
+FROM maven:3.8.2-jdk-8
 
 WORKDIR /build
 
