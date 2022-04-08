@@ -21,7 +21,7 @@ RUN git clone -b main https://github.com/krisdwi/bca-cloud-test.git /tmp/apps
 
 ### COPY TO DEPLOYMENT
 
-RUN cp //build/target/mycore-svc-int.war $JBOSS_HOME/standalone/deployments/mycore-svc-int.war
+COPY --from=0 /build/target/mycore-svc-int.war $JBOSS_HOME/standalone/deployments/mycore-svc-int.war
 
 ### ORACLE DB DRIVER 
 
