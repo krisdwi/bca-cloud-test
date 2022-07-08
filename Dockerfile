@@ -1,4 +1,4 @@
-FROM default-route-openshift-image-registry.apps.ocpdev.dti.co.id/louise-dev/maven:3.8.2-jdk-8 AS build_java
+FROM default-route-openshift-image-registry.apps.ocpdev.dti.co.id/mycore-dev/maven:3.8.2-jdk-8 AS build_java
 
 WORKDIR /build
 
